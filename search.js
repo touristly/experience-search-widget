@@ -1,5 +1,4 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React, { useState, useEffect } from 'react'
 import { Chip, Card, Tile } from './components'
 import './style.css'
 
@@ -42,7 +41,32 @@ const Panel = () => {
 }
 
 const Search = () => {
-  return <Panel />
+  const [searchActive, setSearchActive] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const searchQueryEntered = e => {
+    const { value } = e.target
+    if (value.length) {
+      setSearchActive(false)
+      setSearchQuery(value);
+    }
+  }
+
+  const searchClicked = () => {
+    setSearchActive(true)
+  }
+
+  document.body.addEventListener("click", () => setSearchActive(false))
+
+  return (
+    <div className='search-box'>
+      <div className="search-wrapper">
+        <input spellcheck onClick={() => searchClicked()} onChange={(e) => searchQueryEntered(e)} type='search' placeholder='Search by activity or attraction' className='input-box' />
+        <button className='search-btn'>Search</button>
+        {searchActive && <Panel />}
+      </div>
+    </div>
+  )
 }
 
 export default Search
