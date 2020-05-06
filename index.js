@@ -1,7 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Card from './components/Card'
+import { Chip, Card, Tile } from './components'
 
 let App = document.getElementById("app");
 
-ReactDOM.render(<Card />, App);
+const content = (
+  <>
+    <Chip />
+    <Tile />
+    {/* <Card /> */}
+  </>
+)
+
+ReactDOM.render(content, App);
