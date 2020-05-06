@@ -1,4 +1,5 @@
 .chip {
+  cursor: pointer;
   color: #75767A;
   padding: 10px;
   margin: 5px;

@@ -1,5 +1,6 @@
 .tile {
-  margin: 3px;
+  cursor: pointer;
+  margin: 5px 15px 0 0;
   width: 120px;
   height: 120px;
   color: white;

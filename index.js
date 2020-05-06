@@ -1,15 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Chip, Card, Tile } from './components'
+import Search from './search'
 
-let App = document.getElementById("app");
-
-const content = (
-  <>
-    <Chip />
-    <Tile />
-    {/* <Card /> */}
-  </>
-)
-
-ReactDOM.render(content, App);
+ReactDOM.render(<Search />, document.getElementById('app'));
