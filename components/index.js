@@ -1,3 +1,3 @@
-export { default as Card } from './Card'
-export { default as Chip } from './Chip'
-export { default as Tile } from './Tile'
+export { default as Card } from './Card/index.jsx'
+export { default as Chip } from './Chip/index.jsx'
+export { default as Tile } from './Tile/index.jsx'
