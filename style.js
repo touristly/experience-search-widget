@@ -2,21 +2,31 @@ import {
   StyleSheet
 } from 'react-native'
 
+const container = {
+  display: 'flex',
+  flexDirection: 'row',
+  marginTop: '10px',
+  marginRight: '10px',
+  marginBottom: '20px'
+}
+
 const styles = StyleSheet.create({
+  deskPanel: {
+    width: '80%',
+    boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+  },
   panel: {
     backgroundColor: '#FFFFFF',
-    boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
     borderRadius: '0px 0px 4px 4px',
-    padding: '20px',
-    width: '80%',
+    padding: '10px',
   },
-  panelComp: {
-    display: 'flex',
-    flexDirection: 'row',
+  chipCont: {
+    ...container,
     flexWrap: 'wrap',
-    marginTop: '10px',
-    marginRight: '10px',
-    marginBottom: '20px'
+  },
+  panelCont: {
+    ...container,
+    overflow: 'auto'
   },
   panelTitle: {
     margin: '0',

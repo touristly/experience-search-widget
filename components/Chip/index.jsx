@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     mixBlendMode: 'normal',
     border: '1px solid #D9DBE0',
     boxSizing: 'border-box',
-    borderRadius: '40px',
+    borderRadius: '40px'
   },
   chipIcon: {
     marginRight: '5px',
