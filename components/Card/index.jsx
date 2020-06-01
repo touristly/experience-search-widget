@@ -1,112 +1,130 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import {
   StyleSheet,
   View,
   Image,
   Text,
   TouchableHighlight
-} from 'react-native'
-
+} from "react-native";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from "react-native-responsive-screen";
 
 const ellipsis = {
-  whiteSpace: 'nowrap',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-}
+  whiteSpace: "nowrap",
+  overflow: "hidden",
+  textOverflow: "ellipsis"
+};
 
 const styles = StyleSheet.create({
-  deskCard: {
-    cursor: 'pointer',
-    color: '#333333',
-    backgroundColor: 'white',
-    boxShadow: '0px 1px 4px rgba(0, 0, 0, 0.16)',
-    borderRadius: '4px',
-    width: '20%',
-    marginRight: '20px',
+  card: {
+    width: hp("20%"),
+    marginRight: "15px",
+    marginBottom: "15px"
   },
-  mobileCard: {
-    width: '100%',
+  image: {
+    borderTopRightRadius: "4px",
+    borderTopLeftRadius: "4px",
+    width: hp("20%"),
+    height: hp("21%")
   },
-  mobileTitleWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexFlow: 'row',
-    paddingLeft: 0,
-    padding: '10px',
-    borderBottomColor: '#F7F9FC',
-    borderBottomWidth: '1px'
-  },
-  cardImg: {
-    borderTopRightRadius: '4px',
-    borderTopLeftRadius: '4px',
-    height: '300px',
-    width: '100%'
-  },
-  mobileTitle: {
-    ...ellipsis,
-    paddingLeft: 0,
-    width: '60%',
+  info: {
+    boxShadow: "0px 1px 4px rgba(0, 0, 0, 0.16)",
+    borderRadius: "4px",
+    padding: "15px"
   },
   title: {
-    ...ellipsis,
-    overflow: 'hidden',
-    padding: '15px',
-    textTransform: 'capitalize',
-    fontFamily: 'DM Sans',
-    lineHeight: '20px',
-    fontStyle: 'normal',
-    fontWeight: '500',
-    fontSize: '1.2em',
-  },
-  priceWrapper: {
-    marginTop: '10px',
-    textAlign: 'right',
-    display: 'inline-block'
-  },
-  mobilePriceWrapper: {
-    display: 'inline-block'
-  },
-  priceCurrency: {
-    fontSize: '1em'
-  },
-  mobilePrice: {
-    paddingLeft: '5px',
-    fontWeight: 'bold',
+    fontWeight: 400,
+    fontSize: hp("1.7%"),
+    minHeight: hp("9%"),
+    lineHeight: hp("1.9%"),
+    color: "#333333"
   },
   price: {
-    fontSize: '1.2em',
-    paddingLeft: '5px',
-    fontWeight: 'bold'
+    textAlign: "right",
+    marginTop: hp("0.8%"),
+    fontWeight: "bold",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "flex-end"
+  },
+  currency: {
+    fontSize: hp("1.3%"),
+    marginRight: "5px"
+  },
+  amount: {
+    fontSize: 20,
+    fontSize: hp("1.9%"),
+    fontWeight: 500
+  },
+  cardMobile: {
+    width: "100%",
+    marginRight: "15px",
+    marginBottom: "15px"
+  },
+  infoMobile: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingTop: 25,
+    paddingBottom: 25,
+    paddingLeft: 0
+  },
+  titleMobile: {
+    // fontWeight: 400,
+    fontSize: hp("2.2%"),
+    width: "80%",
+    minHeight: hp("5%"),
+    lineHeight: hp("2.9%"),
+    color: "#333333"
+  },
+  priceMobile: {
+    textAlign: "right",
+    fontWeight: "bold",
+    width: "20%",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "baseline",
+    justifyContent: "flex-end"
+  },
+  amountMobile: {
+    fontSize: hp("1.9%"),
+    fontWeight: 600
   }
-})
+});
 
-const Card = ({ imgUrl, title, link }) => {
-  const [isMobile, setIsMobile] = useState(false)
-
-  const onLayout = v => {
-    const { nativeEvent: { layout: { width } } } = v
-
-    if (width <= '768') {
-      console.log('mobile');
-      setIsMobile(true)
-    }
-  }
-
-  return (
-    <View style={isMobile ? styles.mobileCard : styles.deskCard} onLayout={(v) => onLayout(v)}>
-      {!isMobile && <Image style={styles.cardImg} source="https://images.unsplash.com/photo-1507868162883-6b769c1a88c1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3334&q=80" />}
-      <View style={styles.mobileTitleWrapper}>
-        <Text style={isMobile ? styles.mobileTitle : styles.title}>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore eveniet odio deserunt dolores dicta expedita reiciendis perspiciatis nostrum, optio cupiditate voluptatem eos aut quisquam iste modi sapiente. Corporis, ad molestiae!
+const Card = ({ isMobile = false }) => {
+  return isMobile ? (
+    <View style={styles.cardMobile}>
+      <View style={styles.infoMobile}>
+        <Text style={styles.titleMobile}>
+          Small-Group Historical Malacca Day Tour from Kuala Lumpur
         </Text>
-        <View style={isMobile ? styles.mobilePriceWrapper : styles.priceWrapper}>
-          <Text style={isMobile && styles.mobilePrice}>MYR</Text>
-          <Text style={isMobile ? styles.mobilePrice : styles.price}>200</Text>
+        <View style={styles.priceMobile}>
+          <Text style={styles.currency}>MYR</Text>
+          <Text style={styles.amountMobile}>200</Text>
         </View>
       </View>
     </View>
-  )
+  ) : (
+    <View style={styles.card}>
+      <Image
+        style={styles.image}
+        source="https://images.unsplash.com/photo-1507868162883-6b769c1a88c1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3334&q=80"
+      />
+      <View style={styles.info}>
+        <Text style={styles.title}>
+          Small-Group Historical Malacca Day Tour from Kuala Lumpur
+        </Text>
+        <View style={styles.price}>
+          <Text style={styles.currency}>MYR </Text>
+          <Text style={styles.amount}>200</Text>
+        </View>
+      </View>
+    </View>
+  );
+};
 
-}
-
-export default Card
+export default Card;

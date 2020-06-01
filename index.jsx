@@ -1,98 +1,137 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from "react";
 import {
   AppRegistry,
   View,
   Text,
-  Button,
   TouchableHighlight,
-  TextInput
-} from 'react-native';
+  TextInput,
+  Dimensions
+} from "react-native";
 
-import { Chip, Card, Tile } from './components'
-import styles from './style'
+import { Chip, Card, Tile, List } from "./components";
+import styles from "./style";
+import style from "./newstyle";
 
-const Panel = ({ isMobile }) => {
+const Panel = ({ isMobile = false, searchTerm = "" }) => {
+  const contentStyle = isMobile ? style["content-mobile"] : style["content"];
+  const cardContStyle = isMobile
+    ? style["card-cont-mobile"]
+    : style["card-cont"];
+  console.log("contentStyle : ", isMobile);
+
   return (
-    <View style={[isMobile ? styles.panel : { ...styles.panel, ...styles.deskPanel }]}>
-      <View>
-        <Text style={styles.panelTitle}>All Activities</Text>
-        <Text style={styles.panelDesc}>Browse all activities and experiences</Text>
-        <View style={styles.chipCont}>
-          <Chip />
-          <Chip />
-          <Chip />
-          <Chip />
-        </View>
-      </View>
-      <View>
-        <Text style={styles.panelTitle}>Explore more location</Text>
-        <Text style={styles.panelDesc}>Check out the best locations for your next vacation</Text>
-        <View style={styles.panelCont}>
-          <Tile />
-          <Tile />
-          <Tile />
-          <Tile />
-        </View>
-      </View>
-      <View>
-        <Text style={styles.panelTitle}>Best Activities near you</Text>
-        <Text style={styles.panelDesc}>Most popular activities booked by travelers</Text>
-        <View style={styles.panelCont}>
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-        </View>
+    <View style={style["dropdown-cont"]}>
+      <View style={contentStyle}>
+        {searchTerm ? (
+          <List />
+        ) : (
+          <>
+            <Text style={style["title"]}>All Activities</Text>
+            <Text style={style["subtitle"]}>
+              Browse all activities and experiences
+            </Text>
+            <View style={style["chip-cont"]}>
+              <Chip />
+              <Chip />
+              <Chip />
+              <Chip />
+            </View>
+
+            <Text style={style["title"]}>Explore more location</Text>
+            <Text style={style["subtitle"]}>
+              Check out the best locations for your next vacation
+            </Text>
+            <View style={style["tile-cont"]}>
+              <Tile />
+              <Tile />
+              <Tile />
+              <Tile />
+            </View>
+
+            <Text style={style["title"]}>Best Activities near you</Text>
+            <Text style={style["subtitle"]}>
+              Most popular activities booked by travelers
+            </Text>
+            <View style={cardContStyle}>
+              <Card isMobile={isMobile} />
+              <Card isMobile={isMobile} />
+              <Card isMobile={isMobile} />
+              <Card isMobile={isMobile} />
+            </View>
+          </>
+        )}
       </View>
     </View>
-  )
-}
+  );
+};
 
-const ReactNativeWeb = () => {
-  const [searchActive, setSearchActive] = useState(true)
-  const [disableBtn, setDisableBtn] = useState(true)
-  const [isMobile, setIsMobile] = useState(false)
-  const [searchQuery, setSearchQuery] = useState('')
+const App = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    const screenWidth = Math.round(Dimensions.get("window").width);
+    console.log("screenWidth : ", screenWidth);
+
+    if (screenWidth <= 768) setIsMobile(true);
+  }, []);
 
   const searchQueryEntered = value => {
-    if (!value.length) {
-      setSearchActive(false)
-    } else {
-      setSearchActive(true)
-      setDisableBtn(false)
-      setSearchQuery(value);
-    }
-  }
+    console.log("Value : ", value);
+    setSearchTerm(value);
+  };
 
   const onLayout = v => {
-    const { nativeEvent: { layout: { width } } } = v
+    const { width } = v.nativeEvent.layout;
+    setIsMobile(width <= "768" ? true : false);
+  };
+  console.log("Mobile or not : ", isMobile);
 
-    if (width <= '768') {
-      console.log('mobile');
-      setIsMobile(true)
-    }
-  }
-
-  const searchBtn = (
-    <TouchableHighlight disabled={disableBtn} style={styles.searchBtn} >
-      <Text style={styles.searchText}>Search</Text>
-    </TouchableHighlight>
-  )
-
-  // document.body.addEventListener("click", () => setSearchActive(false))
-
+  // Desktop View
   return (
-    <View style={styles.searchBox} onLayout={(v) => onLayout(v)}>
-      <View style={styles.searchWrapper}>
-        <View style={styles.inputSearchWrapper}>
-          <TextInput placeholderTextColor='#C5C9D0' spellcheck onChangeText={(e) => searchQueryEntered(e)} type='search' placeholder='Search by activity or attraction' style={styles.inputBox} />
-          {!isMobile && searchBtn}
+    <View onLayout={v => onLayout(v)}>
+      {!isMobile ? (
+        <View style={style["widget-cont"]}>
+          <View style={style["search-box-cont"]}>
+            <View style={style["input-box"]}>
+              <TextInput
+                placeholderTextColor="#747474"
+                spellcheck
+                onChangeText={e => searchQueryEntered(e)}
+                type="search"
+                placeholder="Search by activity or attraction"
+                style={style["input"]}
+              />
+              <Panel isMobile={false} searchTerm={searchTerm} />
+            </View>
+            <TouchableHighlight style={style["button"]}>
+              <Text style={style["button-text"]}>Search</Text>
+            </TouchableHighlight>
+          </View>
         </View>
-        {searchActive && <Panel isMobile={isMobile} />}
-      </View>
+      ) : (
+        <View style={style["widget-cont"]}>
+          <View style={style["search-box-cont"]}>
+            <View style={style["input-box-mobile"]}>
+              <TextInput
+                placeholderTextColor="#747474"
+                spellcheck
+                onChangeText={e => searchQueryEntered(e)}
+                type="search"
+                placeholder="Search by activity or attraction"
+                style={style["input-mobile"]}
+              />
+              <Text style={style["cancel"]}>Cancel</Text>
+              <Panel isMobile={true} searchTerm={searchTerm} />
+            </View>
+          </View>
+        </View>
+      )}
     </View>
-  )
-}
+  );
+};
 
-AppRegistry.registerComponent('ReactNativeWeb', () => ReactNativeWeb);
-AppRegistry.runApplication('ReactNativeWeb', { rootTag: document.getElementById('app') });
+AppRegistry.registerComponent("ReactNativeWeb", () => App);
+AppRegistry.runApplication("ReactNativeWeb", {
+  rootTag: document.getElementById("app")
+});
