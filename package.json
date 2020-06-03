@@ -4,7 +4,8 @@
   "description": "Allows users to search for activities on web and mobile",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server"
+    "dev": "webpack-dev-server",
+    "build": "webpack"
   },
   "author": "Ankit Khosla",
   "license": "ISC",
@@ -26,6 +27,6 @@
   "devDependencies": {
     "html-webpack-plugin": "^4.3.0",
     "react-scripts": "^3.4.1",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "3.10.3"
   }
 }
