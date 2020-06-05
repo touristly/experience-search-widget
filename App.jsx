@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  AppRegistry,
   View,
   Text,
   TouchableHighlight,
@@ -131,7 +130,4 @@ const App = () => {
   );
 };
 
-AppRegistry.registerComponent("ReactNativeWeb", () => App);
-AppRegistry.runApplication("ReactNativeWeb", {
-  rootTag: document.getElementById("app")
-});
+export default App;

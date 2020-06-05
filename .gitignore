@@ -2,3 +2,6 @@ node_modules
 .cache
 dist
 yarn-eror.log
+.now
+.build
+build

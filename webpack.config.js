@@ -1,32 +1,39 @@
-const webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: {
-    main: './index.jsx',
+    main: "./index.js"
+  },
+  output: {
+    path: path.resolve(path.join(__dirname, "build")),
+    filename: "app-[hash].bundle.js"
   },
   module: {
     rules: [
       {
         test: [/\.(js|jsx)?$/],
         exclude: /node_modules/,
-        loader: 'babel-loader',
+        loader: "babel-loader",
         query: {
-          presets: ["@babel/env", "@babel/react"],
-        },
+          presets: ["@babel/env", "@babel/react"]
+        }
       },
       {
         test: /\.css$/i,
-        use: ['css-loader'],
-      },
-    ],
+        use: ["css-loader"]
+      }
+    ]
   },
-  plugins: [new HtmlWebpackPlugin({
-    template: './index.html'
-  })],
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./index.html"
+    })
+  ],
   resolve: {
+    extensions: [".jsx", ".js"],
     alias: {
-      'react-native': 'react-native-web',
-    },
-  },
+      "react-native": "react-native-web"
+    }
+  }
 };
