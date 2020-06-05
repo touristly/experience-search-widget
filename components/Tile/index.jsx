@@ -21,24 +21,27 @@ const styles = StyleSheet.create({
   tileTitle: {
     color: "white",
     position: "absolute",
-    bottom: "10",
+    bottom: 0,
+    paddingBottom: 10,
+    background:
+      "linear-gradient(180deg, rgba(0, 0, 0, 0) 57.3%, rgba(0, 0, 0, 0.351) 100%)",
     left: "0",
     right: "0",
     textAlign: "center",
     fontWeight: "500",
-    fontSize: hp("2"),
+    fontSize: hp("1.8"),
     textTransform: "capitalize"
   }
 });
 
-const Tile = () => {
+const Tile = ({ city = "Langkawi" }) => {
   return (
     <View style={styles.tile}>
       <Image
         style={styles.tileImg}
         source="https://images.unsplash.com/photo-1507868162883-6b769c1a88c1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3334&q=80"
       />
-      <Text style={styles.tileTitle}>Langkawi</Text>
+      <Text style={styles.tileTitle}>{city}</Text>
     </View>
   );
 };

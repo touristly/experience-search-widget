@@ -1,87 +1,150 @@
 import { StyleSheet } from "react-native";
-
-const container = {
-  display: "flex",
-  flexDirection: "row",
-  marginTop: "10px",
-  marginRight: "10px",
-  marginBottom: "20px"
-};
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from "react-native-responsive-screen";
 
 const styles = StyleSheet.create({
-  deskPanel: {
-    width: "80%",
-    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)"
+  "widget-cont": {
+    width: wp("96%"),
+    margin: "auto",
+    marginTop: hp("2%")
   },
-  panel: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: "0px 0px 4px 4px",
-    padding: "10px"
-  },
-  chipCont: {
-    ...container,
-    flexWrap: "wrap"
-  },
-  panelCont: {
-    ...container,
-    overflow: "auto"
-  },
-  panelTitle: {
-    paddingTop: "10px",
-    fontWeight: "500",
-    color: "#000000",
-    fontFamily: "DM Sans",
-    fontSize: "24px",
-    lineHeight: "36px"
-  },
-  panelTitle: {
-    margin: "0",
-    paddingTop: "10px",
-    fontStyle: "normal",
-    fontWeight: "500",
-    fontSize: "1.3em",
-    lineHeight: "30px",
-    color: "#000000"
-  },
-  panelDesc: {
-    paddingBottom: "10px",
-    fontDamily: "DM Sans",
-    fontSize: "14px",
-    lineHeight: "22px",
-    color: "#72777E",
-    fontWeight: 300
-  },
-  searchBox: {
-    backgroundColor: "#FFFFFF",
-    padding: "20px"
-  },
-  inputBox: {
-    backgroundColor: "#FFFFFF",
-    padding: "10px",
-    height: "56px",
-    width: "80%",
-    fontSize: "1em",
-    border: "1px solid #D9DBE0",
-    borderRadius: "4px"
-  },
-  inputSearchWrapper: {
+  "search-box-cont": {
     display: "flex",
     flexDirection: "row",
-    flexWrap: "wrap"
+    alignItems: "center",
+    justifyContent: "space-between"
   },
-  searchText: {
-    color: "white",
-    textAlign: "center",
-    fontSize: "1em",
-    paddingTop: "17px",
-    fontWeight: "bold"
+  "input-box": {
+    position: "relative",
+    width: "80%"
   },
-  searchBtn: {
-    backgroundColor: "#E10000",
+  "input-box-mobile": {
+    // position: relative;
+    width: "100%",
+    // padding-right: 35px;
+    // display: flex;
+    // flex-direction: row;
+    // align-items: center;
+    // justify-content: space-between;
+    // padding: 10px;
+    // padding-right: 10px;
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between"
+  },
+  input: {
+    height: hp("7%"),
+    backgroundColor: "#ffffff;",
+    border: "1px solid #d9dbe0",
     borderRadius: "4px",
-    marginLeft: "10px",
-    height: "56px",
-    width: "182px"
+    paddingLeft: "15px",
+    fontSize: hp("2%"),
+    lineHeight: "20px",
+    color: "black"
+  },
+  "input-mobile": {
+    width: "100%",
+    height: hp("7%"),
+    backgroundColor: "#ffffff;",
+    border: "1px solid #d9dbe0",
+    borderRadius: "4px",
+    paddingLeft: "15px",
+    fontSize: hp("2%"),
+    lineHeight: "20px",
+    color: "black"
+  },
+  cancel: {
+    paddingLeft: "10px",
+    color: "#4b4fa6",
+    fontSize: hp("1.8")
+  },
+  button: {
+    height: hp("7%"),
+    backgroundColor: "#e10000",
+    borderRadius: "4px",
+    width: "18%",
+    fontSize: hp("2%"),
+    textAlign: "center",
+    color: "#ffffff"
+  },
+  "button-text": {
+    height: hp("7%"),
+    display: "flex",
+    alignItems: "center",
+    fontSize: hp("2%"),
+    color: "white",
+    fontWeight: "bold",
+    margin: "auto"
+  },
+  "dropdown-cont": {
+    position: "absolute",
+    left: "0",
+    right: "0",
+    top: hp("7%")
+  },
+  content: {
+    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+    borderRadius: "0px 0px 4px 4px",
+    paddingTop: "20px",
+    paddingRight: "20px",
+    paddingBottom: "20px",
+    paddingLeft: "20px",
+    maxHeight: hp("65%"),
+    overflow: "scroll"
+  },
+  "content-mobile": {
+    maxHeight: hp("90%"),
+    paddingTop: "40px",
+    paddingRight: "20px",
+    paddingBottom: "20px",
+    paddingLeft: "20px",
+    overflow: "scroll",
+    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)"
+  },
+  title: {
+    fontWeight: 400,
+    fontSize: hp("2.4"),
+    lineHeight: hp("3.0"),
+    marginTop: hp("1.0")
+  },
+  subtitle: {
+    fontSize: hp("1.6"),
+    lineHeight: hp("2.5"),
+    color: "#72777e"
+  },
+  "chip-cont": {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: hp("2.0"),
+    marginBottom: hp("3.0")
+  },
+  "tile-cont": {
+    display: "flex",
+    flexDirection: "row",
+    marginTop: hp("2.0"),
+    marginBottom: hp("3.5"),
+    overflow: "auto"
+  },
+  "card-cont": {
+    display: "flex",
+    flexDirection: "row",
+    marginTop: hp("2.0"),
+    marginRight: wp("2"),
+    marginBottom: hp("3.5"),
+    overflow: "auto"
+  },
+  "card-cont-mobile": {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: hp("2.0"),
+    marginRight: wp("2"),
+    marginBottom: hp("3.5")
+    // overflow: "auto"
   }
 });
 

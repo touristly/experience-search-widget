@@ -8,8 +8,7 @@ import {
 } from "react-native";
 
 import { Chip, Card, Tile, List } from "./components";
-import styles from "./style";
-import style from "./newstyle";
+import style from "./style";
 
 const Panel = ({ isMobile = false, searchTerm = "" }) => {
   const contentStyle = isMobile ? style["content-mobile"] : style["content"];
@@ -30,10 +29,10 @@ const Panel = ({ isMobile = false, searchTerm = "" }) => {
               Browse all activities and experiences
             </Text>
             <View style={style["chip-cont"]}>
-              <Chip />
-              <Chip />
-              <Chip />
-              <Chip />
+              <Chip title="Activities & experiences" />
+              <Chip title="Food & Beverages" />
+              <Chip title="Car Rental" />
+              <Chip title="Holiday Packages" />
             </View>
 
             <Text style={style["title"]}>Explore more location</Text>
@@ -41,10 +40,10 @@ const Panel = ({ isMobile = false, searchTerm = "" }) => {
               Check out the best locations for your next vacation
             </Text>
             <View style={style["tile-cont"]}>
-              <Tile />
-              <Tile />
-              <Tile />
-              <Tile />
+              <Tile city="Langkawi" />
+              <Tile city="Penang" />
+              <Tile city="Malacca" />
+              <Tile city="Ipoh" />
             </View>
 
             <Text style={style["title"]}>Best Activities near you</Text>
@@ -82,6 +81,8 @@ const App = () => {
 
   const onLayout = v => {
     const { width } = v.nativeEvent.layout;
+    console.log("On layout : ", width);
+
     setIsMobile(width <= "768" ? true : false);
   };
   console.log("Mobile or not : ", isMobile);

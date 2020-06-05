@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     fontWeight: 400,
     fontSize: hp("1.7%"),
     minHeight: hp("9%"),
-    lineHeight: hp("1.9%"),
+    lineHeight: hp("2.2%"),
     color: "#333333"
   },
   price: {
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "flex-end",
-    alignItems: "flex-end"
+    alignItems: "baseline"
   },
   currency: {
     fontSize: hp("1.3%"),
@@ -68,13 +68,13 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingTop: 25,
-    paddingBottom: 25,
+    paddingTop: 10,
+    paddingBottom: 10,
     paddingLeft: 0
   },
   titleMobile: {
     // fontWeight: 400,
-    fontSize: hp("2.2%"),
+    fontSize: hp("2.0%"),
     width: "80%",
     minHeight: hp("5%"),
     lineHeight: hp("2.9%"),
@@ -95,13 +95,14 @@ const styles = StyleSheet.create({
   }
 });
 
-const Card = ({ isMobile = false }) => {
+const Card = ({
+  isMobile = false,
+  title = "Small-Group Historical Malacca Day Tour from Kuala Lumpur"
+}) => {
   return isMobile ? (
     <View style={styles.cardMobile}>
       <View style={styles.infoMobile}>
-        <Text style={styles.titleMobile}>
-          Small-Group Historical Malacca Day Tour from Kuala Lumpur
-        </Text>
+        <Text style={styles.titleMobile}>{title}</Text>
         <View style={styles.priceMobile}>
           <Text style={styles.currency}>MYR</Text>
           <Text style={styles.amountMobile}>200</Text>
@@ -115,9 +116,7 @@ const Card = ({ isMobile = false }) => {
         source="https://images.unsplash.com/photo-1507868162883-6b769c1a88c1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3334&q=80"
       />
       <View style={styles.info}>
-        <Text style={styles.title}>
-          Small-Group Historical Malacca Day Tour from Kuala Lumpur
-        </Text>
+        <Text style={styles.title}>{title}</Text>
         <View style={styles.price}>
           <Text style={styles.currency}>MYR </Text>
           <Text style={styles.amount}>200</Text>
