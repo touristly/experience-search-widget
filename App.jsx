@@ -10,12 +10,22 @@ import {
 import { Chip, Card, Tile, List } from "./components";
 import style from "./style";
 
-const Panel = ({ isMobile = false, searchTerm = "" }) => {
+const Panel = ({ data = null, isMobile = false, searchTerm = "" }) => {
   const contentStyle = isMobile ? style["content-mobile"] : style["content"];
   const cardContStyle = isMobile
     ? style["card-cont-mobile"]
     : style["card-cont"];
-  console.log("contentStyle : ", isMobile);
+  // console.log("contentStyle : ", isMobile);
+
+  const categories =
+    (data && data.currentActivities && data.currentActivities.categories) || [];
+
+  const locations =
+    (data && data.currentActivities && data.currentActivities.destinations) ||
+    [];
+
+  const activities =
+    (data && data.currentActivities && data.currentActivities.activities) || [];
 
   return (
     <View style={style["dropdown-cont"]}>
@@ -29,10 +39,9 @@ const Panel = ({ isMobile = false, searchTerm = "" }) => {
               Browse all activities and experiences
             </Text>
             <View style={style["chip-cont"]}>
-              <Chip title="Activities & experiences" />
-              <Chip title="Food & Beverages" />
-              <Chip title="Car Rental" />
-              <Chip title="Holiday Packages" />
+              {categories.map((d, index) => (
+                <Chip key={`category_${index}`} title={d.name} slug={d.slug} />
+              ))}
             </View>
 
             <Text style={style["title"]}>Explore more location</Text>
@@ -40,10 +49,13 @@ const Panel = ({ isMobile = false, searchTerm = "" }) => {
               Check out the best locations for your next vacation
             </Text>
             <View style={style["tile-cont"]}>
-              <Tile city="Langkawi" />
-              <Tile city="Penang" />
-              <Tile city="Malacca" />
-              <Tile city="Ipoh" />
+              {locations.map((d, index) => (
+                <Tile
+                  key={`location_${index}`}
+                  city={d.name}
+                  image={d.image_link}
+                />
+              ))}
             </View>
 
             <Text style={style["title"]}>Best Activities near you</Text>
@@ -51,10 +63,14 @@ const Panel = ({ isMobile = false, searchTerm = "" }) => {
               Most popular activities booked by travelers
             </Text>
             <View style={cardContStyle}>
-              <Card isMobile={isMobile} />
-              <Card isMobile={isMobile} />
-              <Card isMobile={isMobile} />
-              <Card isMobile={isMobile} />
+              {activities.map((d, index) => (
+                <Card
+                  key={`activity_${index}`}
+                  title={d.title}
+                  image={d.image_link}
+                  isMobile={isMobile}
+                />
+              ))}
             </View>
           </>
         )}
@@ -64,14 +80,27 @@ const Panel = ({ isMobile = false, searchTerm = "" }) => {
 };
 
 const App = () => {
+  const [data, setData] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const callApi = async () => {
+    const activitiesUrl =
+      "https://api.vidi.cc/search-widget/searchActivities?query=batu&destination=kualaLumpur";
+    const res = await fetch(activitiesUrl);
+    if (res.status === 200) {
+      const data = await res.json();
+      if (data) {
+        setData(data);
+      }
+    }
+  };
 
   useEffect(() => {
     const screenWidth = Math.round(Dimensions.get("window").width);
     console.log("screenWidth : ", screenWidth);
-
     if (screenWidth <= 768) setIsMobile(true);
+    callApi();
   }, []);
 
   const searchQueryEntered = value => {
@@ -85,7 +114,7 @@ const App = () => {
 
     setIsMobile(width <= "768" ? true : false);
   };
-  console.log("Mobile or not : ", isMobile);
+  console.log("Mobile or not : ", isMobile, data);
 
   // Desktop View
   return (
@@ -102,7 +131,7 @@ const App = () => {
                 placeholder="Search by activity or attraction"
                 style={style["input"]}
               />
-              <Panel isMobile={false} searchTerm={searchTerm} />
+              <Panel data={data} isMobile={false} searchTerm={searchTerm} />
             </View>
             <TouchableHighlight style={style["button"]}>
               <Text style={style["button-text"]}>Search</Text>
@@ -122,7 +151,7 @@ const App = () => {
                 style={style["input-mobile"]}
               />
               <Text style={style["cancel"]}>Cancel</Text>
-              <Panel isMobile={true} searchTerm={searchTerm} />
+              <Panel data={data} isMobile={true} searchTerm={searchTerm} />
             </View>
           </View>
         </View>

@@ -5,3 +5,4 @@ yarn-eror.log
 .now
 .build
 build
+.DS_Store

@@ -14,24 +14,24 @@ const styles = StyleSheet.create({
     paddingLeft: "15px",
     paddingRight: "15px",
     marginRight: "15px",
-    marginBottom: "15px",
+    marginBottom: hp("1.4"),
     display: "flex",
     flexDirection: "row",
     alignItems: "center"
   },
   tileTitle: {
-    fontSize: hp("1.6")
+    fontSize: hp("1.7")
   },
   img: {
-    height: 18,
-    width: 18,
+    height: hp("1.7"),
+    width: hp("1.7"),
     marginRight: "8px"
   }
 });
 
-const Chip = ({ title = "Activities & experiences" }) => (
+const Chip = ({ title = "Activities & experiences", slug = "" }) => (
   <View style={styles.chip}>
-    <Image style={styles.img} source={"../../static/images/fandb.png"} />
+    <Image style={styles.img} source={`../../static/images/${slug}.svg`} />
     <Text style={styles.tileTitle}>{title}</Text>
   </View>
 );

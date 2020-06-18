@@ -34,13 +34,10 @@ const styles = StyleSheet.create({
   }
 });
 
-const Tile = ({ city = "Langkawi" }) => {
+const Tile = ({ city = "Langkawi", image = "" }) => {
   return (
     <View style={styles.tile}>
-      <Image
-        style={styles.tileImg}
-        source="https://images.unsplash.com/photo-1507868162883-6b769c1a88c1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3334&q=80"
-      />
+      <Image style={styles.tileImg} source={image} />
       <Text style={styles.tileTitle}>{city}</Text>
     </View>
   );
