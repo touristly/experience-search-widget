@@ -27,11 +27,18 @@ const Panel = ({ data = null, isMobile = false, searchTerm = "" }) => {
   const activities =
     (data && data.currentActivities && data.currentActivities.activities) || [];
 
+  const searchResults = (data && data.results) || [];
+
   return (
     <View style={style["dropdown-cont"]}>
       <View style={contentStyle}>
         {searchTerm ? (
-          <List />
+          <List
+            activities={searchResults.map(d => ({
+              title: d.title,
+              city: d.destination_name
+            }))}
+          />
         ) : (
           <>
             <Text style={style["title"]}>All Activities</Text>
@@ -84,9 +91,8 @@ const App = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const callApi = async () => {
-    const activitiesUrl =
-      "https://api.vidi.cc/search-widget/searchActivities?query=batu&destination=kualaLumpur";
+  const callApi = async (search = "") => {
+    const activitiesUrl = `https://api.vidi.cc/search-widget/searchActivities?query=${search}&destination=kualaLumpur`;
     const res = await fetch(activitiesUrl);
     if (res.status === 200) {
       const data = await res.json();
@@ -106,6 +112,7 @@ const App = () => {
   const searchQueryEntered = value => {
     console.log("Value : ", value);
     setSearchTerm(value);
+    if (value) callApi(value);
   };
 
   const onLayout = v => {
@@ -126,7 +133,7 @@ const App = () => {
               <TextInput
                 placeholderTextColor="#747474"
                 spellcheck
-                onChangeText={e => searchQueryEntered(e)}
+                onChangeText={searchQueryEntered}
                 type="search"
                 placeholder="Search by activity or attraction"
                 style={style["input"]}
@@ -145,7 +152,7 @@ const App = () => {
               <TextInput
                 placeholderTextColor="#747474"
                 spellcheck
-                onChangeText={e => searchQueryEntered(e)}
+                onChangeText={searchQueryEntered}
                 type="search"
                 placeholder="Search by activity or attraction"
                 style={style["input-mobile"]}

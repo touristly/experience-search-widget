@@ -32,22 +32,11 @@ const styles = StyleSheet.create({
   }
 });
 
-const List = () => {
+const List = ({ activities = [] }) => {
   return (
     <View>
       <FlatList
-        data={[
-          {
-            title: "KL PASS: Kuala Lumpur Sightseeing Pass",
-            city: "Kuala Lumpur"
-          },
-          {
-            title:
-              "Small-Group Batu Caves and Malaysian Crafts Tour from Kuala Lumpur, Malaysia oldest caves",
-            city: "Kuala Lumpur"
-          },
-          { title: "KidZania Kuala Lumpur Admission Ticket", city: "Penang" }
-        ]}
+        data={activities}
         renderItem={({ item }) => (
           <View style={styles.container}>
             <Text style={styles.title}>{item.title}</Text>
