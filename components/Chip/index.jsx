@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 
 const Chip = ({ title = "Activities & experiences", slug = "" }) => (
   <View style={styles.chip}>
-    <Image style={styles.img} source={`../../static/images/${slug}.svg`} />
+    <Image style={styles.img} source={`/../../static/images/${slug}.svg`} />
     <Text style={styles.tileTitle}>{title}</Text>
   </View>
 );

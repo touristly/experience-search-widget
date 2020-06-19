@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
+  Image,
+  FlatList,
   TouchableHighlight,
   TextInput,
   Dimensions
@@ -73,9 +75,10 @@ const Panel = ({ data = null, isMobile = false, searchTerm = "" }) => {
               {activities.map((d, index) => (
                 <Card
                   key={`activity_${index}`}
+                  isMobile={isMobile}
                   title={d.title}
                   image={d.image_link}
-                  isMobile={isMobile}
+                  price={d.cheapest_price_cents || d.cheapest_value_price_cents}
                 />
               ))}
             </View>
@@ -90,9 +93,14 @@ const App = () => {
   const [data, setData] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [allLocations, setAllLocations] = useState([]);
+  const [showLocationDropdown, setShowLocationDropdown] = useState(false);
+  const [searchLocation, setSearchLocation] = useState("kuala lumpur");
 
-  const callApi = async (search = "") => {
-    const activitiesUrl = `https://api.vidi.cc/search-widget/searchActivities?query=${search}&destination=kualaLumpur`;
+  const callApi = async (search = "", destination) => {
+    const activitiesUrl = `https://api.vidi.cc/search-widget/searchActivities?query=${
+      search || searchTerm
+    }&destination=${(destination || searchLocation).toLowerCase()}`;
     const res = await fetch(activitiesUrl);
     if (res.status === 200) {
       const data = await res.json();
@@ -102,17 +110,56 @@ const App = () => {
     }
   };
 
+  const getLocations = async () => {
+    const res = await fetch("https://api.vidi.cc/api/v2/widgets/destinations/");
+    if (res.status === 200) {
+      const data = await res.json();
+      if (data && data.data && data.data.length) {
+        setAllLocations(data.data);
+      }
+    }
+  };
+
   useEffect(() => {
     const screenWidth = Math.round(Dimensions.get("window").width);
     console.log("screenWidth : ", screenWidth);
     if (screenWidth <= 768) setIsMobile(true);
     callApi();
+    getLocations();
   }, []);
 
   const searchQueryEntered = value => {
     console.log("Value : ", value);
     setSearchTerm(value);
     if (value) callApi(value);
+  };
+
+  const locationEntered = value => {
+    console.log("Entered user location : ", value);
+    setSearchLocation(value);
+    if (!showLocationDropdown) setShowLocationDropdown(true);
+  };
+
+  const locationList = () => {
+    return allLocations.filter(
+      d =>
+        d.attributes.name.toLowerCase().indexOf(searchLocation.toLowerCase()) >=
+          0 ||
+        d.attributes.country_name
+          .toLowerCase()
+          .indexOf(searchLocation.toLowerCase()) >= 0
+    );
+  };
+
+  const handleLocationChange = loc => {
+    setSearchLocation(loc);
+    setShowLocationDropdown(false);
+    callApi(searchTerm, loc);
+  };
+
+  const clearLocation = () => {
+    setSearchLocation("");
+    setShowLocationDropdown(true);
   };
 
   const onLayout = v => {
@@ -128,6 +175,47 @@ const App = () => {
     <View onLayout={v => onLayout(v)}>
       {!isMobile ? (
         <View style={style["widget-cont"]}>
+          <View style={style["location-cont"]}>
+            <Text>Discover exciting things to do in</Text>
+            <View style={style["loc-suggestions-cont"]}>
+              <TextInput
+                placeholderTextColor="#747474"
+                spellcheck
+                value={searchLocation}
+                onChangeText={locationEntered}
+                type="text"
+                placeholder="Search destination"
+                style={style["location-input"]}
+              />
+              {showLocationDropdown && (
+                <View style={style["loc-suggestions-dropdown"]}>
+                  <FlatList
+                    data={locationList()}
+                    renderItem={({ item }) => (
+                      <View
+                        style={style["loc-row"]}
+                        onClick={handleLocationChange.bind(
+                          this,
+                          item.attributes.name
+                        )}
+                      >
+                        <Image
+                          style={style["loc-icon"]}
+                          source="/static/images/location.svg"
+                        />
+                        <Text style={style["loc-name"]}>
+                          {item.attributes.name}
+                        </Text>
+                      </View>
+                    )}
+                  />
+                </View>
+              )}
+            </View>
+            <Text style={style["loc-clear"]} onClick={clearLocation}>
+              clear
+            </Text>
+          </View>
           <View style={style["search-box-cont"]}>
             <View style={style["input-box"]}>
               <TextInput

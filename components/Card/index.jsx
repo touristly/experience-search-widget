@@ -98,15 +98,17 @@ const styles = StyleSheet.create({
 const Card = ({
   isMobile = false,
   image = "",
-  title = "Small-Group Historical Malacca Day Tour from Kuala Lumpur"
+  title = "Small-Group Historical Malacca Day Tour from Kuala Lumpur",
+  price = "200",
+  currency = "MYR"
 }) => {
   return isMobile ? (
     <View style={styles.cardMobile}>
       <View style={styles.infoMobile}>
         <Text style={styles.titleMobile}>{title}</Text>
         <View style={styles.priceMobile}>
-          <Text style={styles.currency}>MYR</Text>
-          <Text style={styles.amountMobile}>200</Text>
+          <Text style={styles.currency}>{currency}</Text>
+          <Text style={styles.amountMobile}>{price}</Text>
         </View>
       </View>
     </View>
@@ -116,8 +118,8 @@ const Card = ({
       <View style={styles.info}>
         <Text style={styles.title}>{title}</Text>
         <View style={styles.price}>
-          <Text style={styles.currency}>MYR </Text>
-          <Text style={styles.amount}>200</Text>
+          <Text style={styles.currency}>{currency} </Text>
+          <Text style={styles.amount}>{price}</Text>
         </View>
       </View>
     </View>

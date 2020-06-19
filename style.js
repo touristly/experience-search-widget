@@ -145,6 +145,58 @@ const styles = StyleSheet.create({
     marginRight: wp("2"),
     marginBottom: hp("3.5")
     // overflow: "auto"
+  },
+  "location-cont": {
+    display: "flex",
+    flexDirection: "row",
+    marginBottom: hp("2.0"),
+    fontWeight: 500,
+    position: "relative",
+    zIndex: 9
+  },
+  "loc-suggestions-cont": {
+    position: "relative",
+    zIndex: 9
+  },
+  "location-input": {
+    marginLeft: 5,
+    color: "#e10000",
+    borderBotton: "1px solid #e10000",
+    width: "100px",
+    paddingBottom: "2px",
+    borderBottomColor: "red",
+    borderBottomWidth: 1,
+    textAlign: "center"
+  },
+  "loc-suggestions-dropdown": {
+    position: "absolute",
+    top: "20px",
+    backgroundColor: "white",
+    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+    borderRadius: 4,
+    maxHeight: "200px",
+    width: "250px"
+  },
+  "loc-row": {
+    height: "40px",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    paddingLeft: 10,
+    cursor: "pointer"
+  },
+  "loc-name": {
+    paddingLeft: 5
+  },
+  "loc-icon": {
+    height: "14px",
+    width: "10px"
+  },
+  "loc-clear": {
+    color: "#75767A",
+    fontSize: "10px",
+    paddingLeft: "4px",
+    cursor: "pointer"
   }
 });
 
