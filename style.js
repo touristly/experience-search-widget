@@ -150,9 +150,11 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     marginBottom: hp("2.0"),
-    fontWeight: 500,
     position: "relative",
     zIndex: 9
+  },
+  "location-find-label": {
+    fontWeight: "500"
   },
   "loc-suggestions-cont": {
     position: "relative",
@@ -166,7 +168,8 @@ const styles = StyleSheet.create({
     paddingBottom: "2px",
     borderBottomColor: "red",
     borderBottomWidth: 1,
-    textAlign: "center"
+    textAlign: "center",
+    fontWeight: 500
   },
   "loc-suggestions-dropdown": {
     position: "absolute",

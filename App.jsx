@@ -176,7 +176,9 @@ const App = () => {
       {!isMobile ? (
         <View style={style["widget-cont"]}>
           <View style={style["location-cont"]}>
-            <Text>Discover exciting things to do in</Text>
+            <Text style={style["location-find-label"]}>
+              Discover exciting things to do in
+            </Text>
             <View style={style["loc-suggestions-cont"]}>
               <TextInput
                 placeholderTextColor="#747474"
