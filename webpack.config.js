@@ -2,7 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry: ["babel-polyfill", "./index.js"],
+  entry: ["babel-polyfill", "./src/index.js"],
   output: {
     path: path.resolve(path.join(__dirname, "build")),
     filename: "app-[hash].bundle.js"
@@ -29,9 +29,9 @@ module.exports = {
     })
   ],
   resolve: {
-    extensions: [".jsx", ".js"],
+    extensions: [".js", ".jsx"],
     alias: {
-      "react-native": "react-native-web"
+      "react-native$": "react-native-web"
     }
   }
 };

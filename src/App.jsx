@@ -10,7 +10,7 @@ import {
 } from "react-native";
 
 import { Chip, Card, Tile, List } from "./components";
-import style from "./style";
+import style from "../style";
 
 const Panel = ({ data = null, isMobile = false, searchTerm = "" }) => {
   const contentStyle = isMobile ? style["content-mobile"] : style["content"];
