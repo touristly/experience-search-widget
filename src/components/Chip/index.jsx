@@ -4,6 +4,12 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from "react-native-responsive-screen";
+import activitiesexperiences from "../../../static/images/activities-experiences.svg";
+import eatdrinks from "../../../static/images/eat-drinks.svg";
+import eventsshows from "../../../static/images/events-shows.svg";
+import themeparksattractions from "../../../static/images/theme-parks-attractions.svg";
+import tourssightseeing from "../../../static/images/tours-sightseeing.svg";
+import transporttravelservices from "../../../static/images/transport-travel-services.svg";
 
 const styles = StyleSheet.create({
   chip: {
@@ -29,9 +35,18 @@ const styles = StyleSheet.create({
   }
 });
 
+const categoryIcons = {
+  "activities-experiences": activitiesexperiences,
+  "eat-drinks": eatdrinks,
+  "events-shows": eventsshows,
+  "theme-parks-attractions": themeparksattractions,
+  "tours-sightseeing": tourssightseeing,
+  "transport-travel-services": transporttravelservices
+};
+
 const Chip = ({ title = "Activities & experiences", slug = "" }) => (
   <View style={styles.chip}>
-    <Image style={styles.img} source={`/../../static/images/${slug}.svg`} />
+    <Image style={styles.img} source={categoryIcons[slug]} />
     <Text style={styles.tileTitle}>{title}</Text>
   </View>
 );
