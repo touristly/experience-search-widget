@@ -10,6 +10,8 @@ import {
 } from "react-native";
 
 import { Chip, Card, Tile, List } from "./components";
+import location from "../static/images/location.svg";
+import nearMe from "../static/images/near_me.svg";
 import style from "../style";
 
 const Panel = ({ data = null, isMobile = false, searchTerm = "" }) => {
@@ -43,45 +45,62 @@ const Panel = ({ data = null, isMobile = false, searchTerm = "" }) => {
           />
         ) : (
           <>
-            <Text style={style["title"]}>All Activities</Text>
-            <Text style={style["subtitle"]}>
-              Browse all activities and experiences
-            </Text>
-            <View style={style["chip-cont"]}>
-              {categories.map((d, index) => (
-                <Chip key={`category_${index}`} title={d.name} slug={d.slug} />
-              ))}
-            </View>
+            {categories.length ? (
+              <>
+                <Text style={style["title"]}>All Activities</Text>
+                <Text style={style["subtitle"]}>
+                  Browse all activities and experiences
+                </Text>
+                <View style={style["chip-cont"]}>
+                  {categories.map((d, index) => (
+                    <Chip
+                      key={`category_${index}`}
+                      title={d.name}
+                      slug={d.slug}
+                    />
+                  ))}
+                </View>
+              </>
+            ) : null}
+            {locations.length ? (
+              <>
+                <Text style={style["title"]}>Explore more location</Text>
+                <Text style={style["subtitle"]}>
+                  Check out the best locations for your next vacation
+                </Text>
+                <View style={style["tile-cont"]}>
+                  {locations.map((d, index) => (
+                    <Tile
+                      key={`location_${index}`}
+                      city={d.name}
+                      image={d.image_link}
+                    />
+                  ))}
+                </View>
+              </>
+            ) : null}
 
-            <Text style={style["title"]}>Explore more location</Text>
-            <Text style={style["subtitle"]}>
-              Check out the best locations for your next vacation
-            </Text>
-            <View style={style["tile-cont"]}>
-              {locations.map((d, index) => (
-                <Tile
-                  key={`location_${index}`}
-                  city={d.name}
-                  image={d.image_link}
-                />
-              ))}
-            </View>
-
-            <Text style={style["title"]}>Best Activities near you</Text>
-            <Text style={style["subtitle"]}>
-              Most popular activities booked by travelers
-            </Text>
-            <View style={cardContStyle}>
-              {activities.map((d, index) => (
-                <Card
-                  key={`activity_${index}`}
-                  isMobile={isMobile}
-                  title={d.title}
-                  image={d.image_link}
-                  price={d.cheapest_price_cents || d.cheapest_value_price_cents}
-                />
-              ))}
-            </View>
+            {activities.length ? (
+              <>
+                <Text style={style["title"]}>Best Activities near you</Text>
+                <Text style={style["subtitle"]}>
+                  Most popular activities booked by travelers
+                </Text>
+                <View style={cardContStyle}>
+                  {activities.map((d, index) => (
+                    <Card
+                      key={`activity_${index}`}
+                      isMobile={isMobile}
+                      title={d.title}
+                      image={d.image_link}
+                      price={
+                        d.cheapest_price_cents || d.cheapest_value_price_cents
+                      }
+                    />
+                  ))}
+                </View>
+              </>
+            ) : null}
           </>
         )}
       </View>
@@ -193,10 +212,7 @@ const App = () => {
               style={style[locRowClass]}
               onClick={handleLocationChange.bind(this, item.attributes.name)}
             >
-              <Image
-                style={style["loc-icon"]}
-                source="/static/images/location.svg"
-              />
+              <Image style={style["loc-icon"]} source={location} />
               <Text style={style[locNameClass]}>{item.attributes.name}</Text>
               <Text style={style["loc-iata-code"]}>
                 {item.attributes.iata_code}
@@ -273,10 +289,7 @@ const App = () => {
               <Text style={style["cancel"]}>Cancel</Text>
               <View style={style["location-cont-mobile"]}>
                 <View style={style["location-input-cont-mob"]}>
-                  <Image
-                    style={style["loc-icon-mobile"]}
-                    source="/static/images/near_me.svg"
-                  />
+                  <Image style={style["loc-icon-mobile"]} source={nearMe} />
                   <TextInput
                     placeholderTextColor="#747474"
                     spellcheck
