@@ -95,7 +95,7 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [allLocations, setAllLocations] = useState([]);
   const [showLocationDropdown, setShowLocationDropdown] = useState(false);
-  const [searchLocation, setSearchLocation] = useState("kuala lumpur");
+  const [searchLocation, setSearchLocation] = useState("Kuala Lumpur");
 
   const callApi = async (search = "", destination) => {
     const activitiesUrl = `https://api.vidi.cc/search-widget/searchActivities?query=${
@@ -162,6 +162,52 @@ const App = () => {
     setShowLocationDropdown(true);
   };
 
+  const DestinationsInput = ({ searchLocation, locationEntered, isMobile }) => {
+    const classname = isMobile ? "location-input-mobile" : "location-input";
+    return (
+      <TextInput
+        placeholderTextColor="#747474"
+        spellcheck
+        value={searchLocation}
+        onChangeText={locationEntered}
+        type="text"
+        placeholder="Search destination"
+        style={style[classname]}
+      />
+    );
+  };
+
+  const DestinationsList = ({ isMobile }) => {
+    const classnameCont = isMobile
+      ? "loc-suggestions-dropdown-mobile"
+      : "loc-suggestions-dropdown";
+    const locNameClass = isMobile ? "loc-name-mobile" : "loc-name";
+    const locRowClass = isMobile ? "loc-row-mobile" : "loc-row";
+
+    return (
+      <View style={style[classnameCont]}>
+        <FlatList
+          data={locationList()}
+          renderItem={({ item }) => (
+            <View
+              style={style[locRowClass]}
+              onClick={handleLocationChange.bind(this, item.attributes.name)}
+            >
+              <Image
+                style={style["loc-icon"]}
+                source="/static/images/location.svg"
+              />
+              <Text style={style[locNameClass]}>{item.attributes.name}</Text>
+              <Text style={style["loc-iata-code"]}>
+                {item.attributes.iata_code}
+              </Text>
+            </View>
+          )}
+        />
+      </View>
+    );
+  };
+
   const onLayout = v => {
     const { width } = v.nativeEvent.layout;
     console.log("On layout : ", width);
@@ -189,30 +235,7 @@ const App = () => {
                 placeholder="Search destination"
                 style={style["location-input"]}
               />
-              {showLocationDropdown && (
-                <View style={style["loc-suggestions-dropdown"]}>
-                  <FlatList
-                    data={locationList()}
-                    renderItem={({ item }) => (
-                      <View
-                        style={style["loc-row"]}
-                        onClick={handleLocationChange.bind(
-                          this,
-                          item.attributes.name
-                        )}
-                      >
-                        <Image
-                          style={style["loc-icon"]}
-                          source="/static/images/location.svg"
-                        />
-                        <Text style={style["loc-name"]}>
-                          {item.attributes.name}
-                        </Text>
-                      </View>
-                    )}
-                  />
-                </View>
-              )}
+              {showLocationDropdown && <DestinationsList isMobile={false} />}
             </View>
             <Text style={style["loc-clear"]} onClick={clearLocation}>
               clear
@@ -248,7 +271,30 @@ const App = () => {
                 style={style["input-mobile"]}
               />
               <Text style={style["cancel"]}>Cancel</Text>
-              <Panel data={data} isMobile={true} searchTerm={searchTerm} />
+              <View style={style["location-cont-mobile"]}>
+                <View style={style["location-input-cont-mob"]}>
+                  <Image
+                    style={style["loc-icon-mobile"]}
+                    source="/static/images/near_me.svg"
+                  />
+                  <TextInput
+                    placeholderTextColor="#747474"
+                    spellcheck
+                    value={searchLocation}
+                    onChangeText={locationEntered}
+                    type="text"
+                    placeholder="Search destination"
+                    style={style["location-input-mobile"]}
+                  />
+                </View>
+                <Text style={style["loc-clear"]} onClick={clearLocation}>
+                  clear
+                </Text>
+                {showLocationDropdown && <DestinationsList isMobile={true} />}
+              </View>
+              {!showLocationDropdown && (
+                <Panel data={data} isMobile={true} searchTerm={searchTerm} />
+              )}
             </View>
           </View>
         </View>

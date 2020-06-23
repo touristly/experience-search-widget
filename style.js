@@ -97,12 +97,12 @@ const styles = StyleSheet.create({
   },
   "content-mobile": {
     maxHeight: hp("90%"),
-    paddingTop: "40px",
-    paddingRight: "20px",
+    paddingTop: "50px",
+    paddingRight: "0px",
     paddingBottom: "20px",
-    paddingLeft: "20px",
-    overflow: "scroll",
-    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)"
+    paddingLeft: "5px",
+    overflow: "scroll"
+    // boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)"
   },
   title: {
     fontWeight: 400,
@@ -144,7 +144,6 @@ const styles = StyleSheet.create({
     marginTop: hp("2.0"),
     marginRight: wp("2"),
     marginBottom: hp("3.5")
-    // overflow: "auto"
   },
   "location-cont": {
     display: "flex",
@@ -152,6 +151,29 @@ const styles = StyleSheet.create({
     marginBottom: hp("2.0"),
     position: "relative",
     zIndex: 9
+  },
+  "location-cont-mobile": {
+    position: "absolute",
+    display: "flex",
+    flexDirection: "row",
+    marginBottom: hp("2.0"),
+    zIndex: 9,
+    top: hp("7%"),
+    height: hp("5.0%"),
+    backgroundColor: "#F8F8F8",
+    justifyContent: "space-between",
+    width: "100%",
+    alignItems: "center"
+  },
+  "location-input-cont-mob": {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  "loc-icon-mobile": {
+    height: hp("1.8"),
+    width: hp("1.8"),
+    marginRight: 10
   },
   "location-find-label": {
     fontWeight: "500"
@@ -171,6 +193,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: 500
   },
+  "location-input-mobile": {
+    fontSize: hp("2.2")
+  },
   "loc-suggestions-dropdown": {
     position: "absolute",
     top: "20px",
@@ -180,6 +205,13 @@ const styles = StyleSheet.create({
     maxHeight: "200px",
     width: "250px"
   },
+  "loc-suggestions-dropdown-mobile": {
+    position: "absolute",
+    top: hp("5"),
+    width: "100%",
+    maxHeight: hp("90%"),
+    overflow: "scroll"
+  },
   "loc-row": {
     height: "40px",
     display: "flex",
@@ -188,18 +220,36 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     cursor: "pointer"
   },
+  "loc-row-mobile": {
+    height: hp("7.0%"),
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    paddingLeft: 10,
+    cursor: "pointer"
+  },
   "loc-name": {
-    paddingLeft: 5
+    paddingLeft: 7,
+    paddingRight: 5,
+    fontSize: hp("1.5")
+  },
+  "loc-name-mobile": {
+    paddingLeft: 15,
+    paddingRight: 15,
+    fontSize: hp("2.4")
   },
   "loc-icon": {
-    height: "14px",
-    width: "10px"
+    height: hp("1.6"),
+    width: hp("1.2")
   },
   "loc-clear": {
     color: "#75767A",
-    fontSize: "10px",
+    fontSize: hp("1.4"),
     paddingLeft: "4px",
     cursor: "pointer"
+  },
+  "loc-iata-code": {
+    color: "#72777E"
   }
 });
 
